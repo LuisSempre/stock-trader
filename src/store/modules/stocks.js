@@ -1,4 +1,4 @@
-import stocks from '@/data/stocks'
+import stocks from '../../data/stocks'
 
 export default {
     state: {
@@ -6,15 +6,24 @@ export default {
     },
     mutations: {
         setStocks(state, stocks) {
-            state.stock = stocks
-        }
+            state.stocks = stocks
+        },
+        // eslint-disable-next-line no-unused-vars
+        randomizeStocks(state) {
+            state;stocks.forEach(stock => {
+                stock.price = Math.random( stock.price * (1 + Math.random() - 0.5))
+            })
+        }        
     },
     actions: {
-        buyStock({commit}) {
-            commit()
+        buyStock({commit}, order) {
+            commit('buyStock', order)
         },
         initStocks({commit}) {
             commit('setStocks', stocks )
+        },
+        randomizeStocks({ commit}) {
+            commit('randomizeStocks')
         }
     },
     getters: {
